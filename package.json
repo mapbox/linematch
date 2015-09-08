@@ -1,0 +1,34 @@
+{
+  "name": "linematch",
+  "version": "1.0.0",
+  "description": "A fast algorithm for comparing sets of polylines (e.g. road networks).",
+  "main": "index.js",
+  "dependencies": {
+    "rbush": "^1.4.0"
+  },
+  "devDependencies": {
+    "eslint": "^1.3.1",
+    "tape": "^4.2.0"
+  },
+  "scripts": {
+    "test": "eslint index.js && tape test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mapbox/linematch.git"
+  },
+  "keywords": [
+    "algorithm",
+    "line",
+    "geometry",
+    "match",
+    "geo",
+    "difference"
+  ],
+  "author": "Vladimir Agafonkin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mapbox/linematch/issues"
+  },
+  "homepage": "https://github.com/mapbox/linematch#readme"
+}
