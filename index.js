@@ -7,21 +7,17 @@ module.exports = linematch;
 
 function linematch(lines1, lines2, threshold) {
     var segments = linesToSegments(lines1);
-    // var tree = rbush().load(linesToSegments(lines2).map(segmentBBox))
-    var other = linesToSegments(lines2);
+    var tree = indexLines(lines2, threshold);
+    // var other = linesToSegments(lines2);
     var rest = [];
 
     while (segments.length) {
-        var seg = segments.pop();
-
-        // console.log(seg, segments.length);
-        // var other = tree.search(segmentBBox(seg));
-
-        var modified = false;
+        var seg = segments.pop(),
+            other = tree.search(segmentBBox(seg, threshold)),
+            modified = false;
 
         for (var j = 0; j < other.length; j++) {
-            var result = matchSegment(seg, other[j], threshold, segments);
-            if (result) {
+            if (matchSegment(seg, other[j][4], threshold, segments)) {
                 modified = true;
                 break;
             }
@@ -33,14 +29,24 @@ function linematch(lines1, lines2, threshold) {
     return rest;
 }
 
-function segmentBBox(seg) {
+function indexLines(lines, r) {
+    var segments = linesToSegments(lines),
+        bboxes = [];
+
+    for (var i = 0; i < segments.length; i++) {
+        bboxes.push(segmentBBox(segments[i], r));
+    }
+    return rbush().load(bboxes);
+}
+
+function segmentBBox(seg, r) {
     var a = seg[0],
         b = seg[1];
     return [
-        Math.min(a[0], b[0]), // minX
-        Math.min(a[1], b[1]), // minY
-        Math.max(a[0], b[0]), // maxX
-        Math.max(a[1], b[1]), // maxY
+        Math.min(a[0], b[0]) - r, // minX
+        Math.min(a[1], b[1]) - r, // minY
+        Math.max(a[0], b[0]) + r, // maxX
+        Math.max(a[1], b[1]) + r, // maxY
         seg
     ];
 }
