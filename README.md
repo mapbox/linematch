@@ -1,5 +1,7 @@
 ## linematch
 
+[![Build Status](https://travis-ci.org/mapbox/linematch.svg?branch=master)](https://travis-ci.org/mapbox/linematch)
+
 A super-fast algorithm for matching two sets of polylines and showing the difference.
 Primarily used for comparing road networks from different datasets.
 
