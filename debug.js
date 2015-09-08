@@ -12,30 +12,25 @@ var lines2 = [[[-96.92034065723419,32.83826118391791],[-96.92042112350464,32.838
 var result = linematch(lines1, lines2, 0.0001);
 // console.timeEnd('match');
 
-var geojson = featureCol([
-	// lineString(lines1, 'green'),
-	lineString(lines2, 'blue'),
-	lineString(result, 'red')
-]);
+var geojson = {
+    type: 'FeatureCollection',
+    features: [
+        lineString(lines2, 'blue'),
+        lineString(result, 'red')
+    ]
+};
 
 console.log(JSON.stringify(geojson));
 
 function lineString(lines, color) {
-	return {
-		type: 'Feature',
-		geometry: {
-			type: 'MultiLineString',
-			coordinates: lines
-		},
-		properties: {
-			stroke: color
-		}
-	};
-}
-
-function featureCol(features) {
-	return {
-		type: 'FeatureCollection',
-		features: features
-	};
+    return {
+        type: 'Feature',
+        geometry: {
+            type: 'MultiLineString',
+            coordinates: lines
+        },
+        properties: {
+            stroke: color
+        }
+    };
 }
