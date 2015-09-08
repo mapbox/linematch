@@ -6,10 +6,9 @@ var matchSegment = require('./segment');
 module.exports = linematch;
 
 function linematch(lines1, lines2, threshold) {
-    var segments = linesToSegments(lines1);
-    var tree = indexLines(lines2, threshold);
-    // var other = linesToSegments(lines2);
-    var rest = [];
+    var segments = linesToSegments(lines1),
+        tree = indexLines(lines2),
+        rest = [];
 
     while (segments.length) {
         var seg = segments.pop(),
@@ -29,12 +28,12 @@ function linematch(lines1, lines2, threshold) {
     return rest;
 }
 
-function indexLines(lines, r) {
+function indexLines(lines) {
     var segments = linesToSegments(lines),
         bboxes = [];
 
     for (var i = 0; i < segments.length; i++) {
-        bboxes.push(segmentBBox(segments[i], r));
+        bboxes.push(segmentBBox(segments[i], 0));
     }
     return rbush().load(bboxes);
 }
