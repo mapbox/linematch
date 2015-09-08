@@ -11,6 +11,10 @@ var result = linematch(lines1, lines2, 0.0001);
 
 ### Changelog
 
+#### 1.0.1 (Sep 8, 2015)
+
+- Minor performance improvement.
+
 #### 1.0.0 (Sep 8, 2015)
 
 - Initial release.

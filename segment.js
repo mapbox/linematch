@@ -16,16 +16,12 @@ function matchSegment(seg1, seg2, r, result) {
 
     //     a----b
     // c---ap---bp---d
-    if (ap !== null && bp !== null) {
-        return true; // fully covered
-    }
+    if (ap !== null && bp !== null) return true; // fully covered
 
     var cp = closePoint(c, a, b, r),
         dp = closePoint(d, a, b, r);
 
-    if (cp !== null && cp === dp) {
-        return false; // degenerate case, no overlap
-    }
+    if (cp !== null && cp === dp) return false; // degenerate case, no overlap
 
     if (cp !== null && dp !== null) {
         var cpp = segPoint(a, b, cp);
@@ -66,12 +62,9 @@ function matchSegment(seg1, seg2, r, result) {
 
     //     a----cp---b
     // d---ap---c
-    } else if (ap !== null && cp !== null && cp !== 0) {
+    } else if (ap !== null && cp !== null) {
         var cpp = segPoint(a, b, cp);
         if (!equals(a, cpp)) result.push([cpp, b]);
-
-    } else {
-        return false; // no overlap
     }
 
     return result.length !== len; // segment processed
@@ -113,7 +106,7 @@ function closePoint(p, a, b, r) {
     dx = p[0] - x;
     dy = p[1] - y;
 
-    return dx * dx + dy * dy < r * r  ? t : null;
+    return dx * dx + dy * dy < r * r ? t : null;
 }
 
 function equals(a, b) {

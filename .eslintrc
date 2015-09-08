@@ -20,6 +20,8 @@
     "comma-style": 2,
     "comma-spacing": 2,
     "key-spacing": 2,
+    "no-multi-spaces": 2,
+    "semi-spacing": 2,
     "new-cap": 2,
     "no-empty": 2,
     "brace-style": 2,
