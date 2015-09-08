@@ -2,7 +2,7 @@
 
 var test = require('tape').test;
 
-var matchSegment = require('./segment');
+var matchSegment = require('../segment');
 
 test('fully covered', function (t) {
     var rest = [];
