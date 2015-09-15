@@ -42,41 +42,40 @@ function matchSegment(seg1, seg2, r, result) {
             if (!equals(cpp, b)) result.push([cpp, b]);
         }
 
-    // a---cp---b
-    //     c----bp---d
-    } else if (bp !== null && cp !== null) {
+    } else if (cp !== null) {
         var cpp = segPoint(a, b, cp);
-        if (!equals(cpp, b)) result.push([a, cpp]);
 
-    // a---dp---b
-    //     d----bp---c
-    } else if (bp !== null && dp !== null) {
+        //     a----cp---b
+        // d---ap---c
+        if (ap !== null && !equals(a, cpp)) result.push([cpp, b]);
+
+        // a---cp---b
+        //     c----bp---d
+        else if (bp !== null && !equals(cpp, b)) result.push([a, cpp]);
+
+    } else if (dp !== null) {
         var dpp = segPoint(a, b, dp);
-        if (!equals(dpp, b)) result.push([a, dpp]);
 
-    //     a----dp---b
-    // c---ap---d
-    } else if (ap !== null && dp !== null) {
-        var dpp = segPoint(a, b, dp);
-        if (!equals(a, dpp)) result.push([dpp, b]);
+        // a---dp---b
+        //     d----bp---c
+        if (bp !== null && !equals(dpp, b)) result.push([a, dpp]);
 
-    //     a----cp---b
-    // d---ap---c
-    } else if (ap !== null && cp !== null) {
-        var cpp = segPoint(a, b, cp);
-        if (!equals(a, cpp)) result.push([cpp, b]);
+        //     a----dp---b
+        // c---ap---d
+        else if (ap !== null && !equals(a, dpp)) result.push([dpp, b]);
     }
 
     return result.length !== len; // segment processed
 }
 
-// find a closest point from a given point p to a segment [a, b]
-// if it's within given square distance r
 
 function segPoint(a, b, t) {
     return [a[0] + (b[0] - a[0]) * t,
             a[1] + (b[1] - a[1]) * t];
 }
+
+// find a closest point from a given point p to a segment [a, b]
+// if it's within given square distance r
 
 function closePoint(p, a, b, r) {
 
