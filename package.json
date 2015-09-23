@@ -8,7 +8,7 @@
   },
   "devDependencies": {
     "eslint": "^1.5.1",
-    "eslint-config-mapbox": "^1.0.0",
+    "eslint-config-mourner": "^1.0.0",
     "tap": "^1.4.0"
   },
   "scripts": {
