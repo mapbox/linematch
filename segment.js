@@ -109,5 +109,5 @@ function closePoint(p, a, b, r) {
 }
 
 function equals(a, b) {
-    return a[0] === b[0] && a[1] === b[1];
+    return Math.abs(a[0] - b[0]) < 1e-12 && Math.abs(a[1] - b[1]) < 1e-12;
 }

@@ -14,6 +14,10 @@ var result = linematch(lines1, lines2, 0.0001);
 
 ### Changelog
 
+#### 1.0.3 (Oct 30, 2015)
+
+- Fixed a bug where linematch would take nearly forever on some rare cases (due to floating point numerical errors).
+
 #### 1.0.2 (Sep 15, 2015)
 
 - Rejoin adjacent segments in the output.
