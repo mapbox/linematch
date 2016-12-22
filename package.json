@@ -1,5 +1,5 @@
 {
-  "name": "linematch",
+  "name": "@mapbox/linematch",
   "version": "1.0.3",
   "description": "A fast algorithm for comparing sets of polylines (e.g. road networks).",
   "main": "index.js",
