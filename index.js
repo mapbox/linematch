@@ -4,6 +4,7 @@ var rbush = require('rbush');
 var matchSegment = require('./segment');
 
 module.exports = linematch;
+module.exports.default = linematch;
 
 function linematch(lines1, lines2, threshold) {
     var segments = linesToSegments(lines1),
