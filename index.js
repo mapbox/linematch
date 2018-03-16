@@ -81,7 +81,9 @@ function linesToSegments(lines) {
         for (var j = line.length - 1; j > 0; j--) {
             var a = line[j - 1];
             var b = line[j];
-            if (a[0] !== b[0] || a[1] !== b[1]) segments.push(a[0], a[1], b[0], b[1]);
+            if (a[0] !== b[0] || a[1] !== b[1]) {
+                addSegment(segments, a[0], a[1], b[0], b[1]);
+            }
         }
     }
 
@@ -122,36 +124,43 @@ function matchSegment(ax, ay, bx, by, cx, cy, dx, dy, r, result) {
         // a---cp---dp---b
         //     c----d
         if (cp < dp) {
-            if (!equals(ax, ay, cpx, cpy)) result.push(ax, ay, cpx, cpy);
-            if (!equals(dpx, dpy, bx, by)) result.push(dpx, dpy, bx, by);
+            if (!equals(ax, ay, cpx, cpy)) addSegment(result, ax, ay, cpx, cpy);
+            if (!equals(dpx, dpy, bx, by)) addSegment(result, dpx, dpy, bx, by);
 
         // a---dp---cp---b
         //     d----c
         } else {
-            if (!equals(ax, ay, dpx, dpy)) result.push(ax, ay, dpx, dpy);
-            if (!equals(cpx, cpy, bx, by)) result.push(cpx, cpy, bx, by);
+            if (!equals(ax, ay, dpx, dpy)) addSegment(result, ax, ay, dpx, dpy);
+            if (!equals(cpx, cpy, bx, by)) addSegment(result, cpx, cpy, bx, by);
         }
 
     } else if (cp !== null) {
         //     a----cp---b
         // d---ap---c
-        if (ap !== null && !equals(ax, ay, cpx, cpy)) result.push(cpx, cpy, bx, by);
+        if (ap !== null && !equals(ax, ay, cpx, cpy)) addSegment(result, cpx, cpy, bx, by);
 
         // a---cp---b
         //     c----bp---d
-        else if (bp !== null && !equals(cpx, cpy, bx, by)) result.push(ax, ay, cpx, cpy);
+        else if (bp !== null && !equals(cpx, cpy, bx, by)) addSegment(result, ax, ay, cpx, cpy);
 
     } else if (dp !== null) {
         // a---dp---b
         //     d----bp---c
-        if (bp !== null && !equals(dpx, dpy, bx, by)) result.push(ax, ay, dpx, dpy);
+        if (bp !== null && !equals(dpx, dpy, bx, by)) addSegment(result, ax, ay, dpx, dpy);
 
         //     a----dp---b
         // c---ap---d
-        else if (ap !== null && !equals(ax, ay, dpx, dpy)) result.push(dpx, dpy, bx, by);
+        else if (ap !== null && !equals(ax, ay, dpx, dpy)) addSegment(result, dpx, dpy, bx, by);
     }
 
     return result.length !== len; // segment processed
+}
+
+function addSegment(arr, ax, ay, bx, by) {
+    arr.push(ax);
+    arr.push(ay);
+    arr.push(bx);
+    arr.push(by);
 }
 
 function interp(a, b, t) {
