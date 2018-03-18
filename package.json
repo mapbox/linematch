@@ -4,7 +4,7 @@
   "description": "A fast algorithm for comparing sets of polylines (e.g. road networks).",
   "main": "index.js",
   "dependencies": {
-    "flatbush": "^1.3.0"
+    "flatbush": "^1.3.1"
   },
   "devDependencies": {
     "eslint": "^1.5.1",
