@@ -1,6 +1,6 @@
 {
   "name": "linematch",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "A fast algorithm for comparing sets of polylines (e.g. road networks).",
   "main": "index.js",
   "dependencies": {
