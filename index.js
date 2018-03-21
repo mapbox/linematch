@@ -1,6 +1,6 @@
 'use strict';
 
-var flatbush = require('flatbush');
+var Flatbush = require('flatbush');
 
 module.exports = linematch;
 module.exports.default = linematch;
@@ -9,7 +9,7 @@ function linematch(lines1, lines2, threshold) {
     var segments = linesToSegments(lines1);
     var segments2 = linesToSegments(lines2);
 
-    var index = flatbush(segments2.length / 4);
+    var index = new Flatbush(segments2.length / 4);
 
     for (var i = 0; i < segments2.length; i += 4) {
         index.add(
