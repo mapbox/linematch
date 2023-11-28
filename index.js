@@ -1,17 +1,17 @@
 'use strict';
 
-var Flatbush = require('flatbush');
+const Flatbush = require('flatbush');
 
 module.exports = linematch;
 module.exports.default = linematch;
 
 function linematch(lines1, lines2, threshold) {
-    var segments = linesToSegments(lines1);
-    var segments2 = linesToSegments(lines2);
+    const segments = linesToSegments(lines1);
+    const segments2 = linesToSegments(lines2);
 
-    var index = new Flatbush(segments2.length / 4);
+    const index = new Flatbush(segments2.length / 4);
 
-    for (var i = 0; i < segments2.length; i += 4) {
+    for (let i = 0; i < segments2.length; i += 4) {
         index.add(
             Math.min(segments2[i + 0], segments2[i + 2]),
             Math.min(segments2[i + 1], segments2[i + 3]),
@@ -21,28 +21,28 @@ function linematch(lines1, lines2, threshold) {
     }
     index.finish();
 
-    var diff = [];
-    var last;
+    const diff = [];
+    let last;
 
     while (segments.length) {
-        var by = segments.pop();
-        var bx = segments.pop();
-        var ay = segments.pop();
-        var ax = segments.pop();
+        const by = segments.pop();
+        const bx = segments.pop();
+        const ay = segments.pop();
+        const ax = segments.pop();
 
-        var other = index.search(
+        const other = index.search(
             Math.min(ax, bx) - threshold, // minX
             Math.min(ay, by) - threshold, // minY
             Math.max(ax, bx) + threshold, // maxX
             Math.max(ay, by) + threshold  // maxY
         );
-        var overlap = false;
+        let overlap = false;
 
         // loop through segments close to the current one, looking for matches;
         // if a match found, unmatched parts of the segment will be added to the queue
-        for (var j = 0; j < other.length; j++) {
-            var k = other[j] * 4;
-            var matched = matchSegment(
+        for (let j = 0; j < other.length; j++) {
+            const k = other[j] * 4;
+            const matched = matchSegment(
                 ax, ay, bx, by,
                 segments2[k + 0], segments2[k + 1],
                 segments2[k + 2], segments2[k + 3],
@@ -57,7 +57,7 @@ function linematch(lines1, lines2, threshold) {
         // if segment didn't match any other segments, add it to the diff
         if (!overlap) {
             // join segment with previous one if possible
-            var p = last && last[last.length - 1];
+            const p = last && last[last.length - 1];
 
             if (p && p[0] === ax && p[1] === ay) {
                 last.push([bx, by]);
@@ -73,14 +73,14 @@ function linematch(lines1, lines2, threshold) {
 }
 
 function linesToSegments(lines) {
-    var segments = [];
+    const segments = [];
 
-    for (var i = 0; i < lines.length; i++) {
-        var line = lines[i];
+    for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
 
-        for (var j = line.length - 1; j > 0; j--) {
-            var a = line[j - 1];
-            var b = line[j];
+        for (let j = line.length - 1; j > 0; j--) {
+            const a = line[j - 1];
+            const b = line[j];
             if (a[0] !== b[0] || a[1] !== b[1]) {
                 addSegment(segments, a[0], a[1], b[0], b[1]);
             }
@@ -93,21 +93,21 @@ function linesToSegments(lines) {
 // subtract segment [c, d] from [a, b] within threshold r
 
 function matchSegment(ax, ay, bx, by, cx, cy, dx, dy, r, result) {
-    var len = result.length;
+    const len = result.length;
 
-    var ap = closePoint(ax, ay, cx, cy, dx, dy, r);
-    var bp = closePoint(bx, by, cx, cy, dx, dy, r);
+    const ap = closePoint(ax, ay, cx, cy, dx, dy, r);
+    const bp = closePoint(bx, by, cx, cy, dx, dy, r);
 
     //     a----b
     // c---ap---bp---d
     if (ap !== null && bp !== null) return true; // fully covered
 
-    var cp = closePoint(cx, cy, ax, ay, bx, by, r);
-    var dp = closePoint(dx, dy, ax, ay, bx, by, r);
+    const cp = closePoint(cx, cy, ax, ay, bx, by, r);
+    const dp = closePoint(dx, dy, ax, ay, bx, by, r);
 
     if (cp !== null && cp === dp) return false; // degenerate case, no overlap
 
-    var cpx, cpy, dpx, dpy;
+    let cpx, cpy, dpx, dpy;
     if (cp !== null) {
         cpx = interp(ax, bx, cp);
         cpy = interp(ay, by, cp);
@@ -172,14 +172,15 @@ function interp(a, b, t) {
 
 function closePoint(px, py, ax, ay, bx, by, r) {
 
-    var x = ax,
+    let x = ax,
         y = ay,
         dx = bx - x,
-        dy = by - y;
+        dy = by - y,
+        t = 0;
 
     if (dx !== 0 || dy !== 0) {
 
-        var t = ((px - x) * dx + (py - y) * dy) / (dx * dx + dy * dy);
+        t = ((px - x) * dx + (py - y) * dy) / (dx * dx + dy * dy);
 
         if (t >= 1) {
             x = bx;
@@ -202,7 +203,7 @@ function closePoint(px, py, ax, ay, bx, by, r) {
 }
 
 function equals(ax, ay, bx, by) {
-    var dx = Math.abs(ax - bx);
-    var dy = Math.abs(ay - by);
+    const dx = Math.abs(ax - bx);
+    const dy = Math.abs(ay - by);
     return dx < 1e-12 && dy < 1e-12;
 }

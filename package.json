@@ -4,19 +4,19 @@
   "description": "A fast algorithm for comparing sets of polylines (e.g. road networks).",
   "main": "index.js",
   "dependencies": {
-    "flatbush": "^2.0.1"
+    "flatbush": "^3.3.1"
   },
   "devDependencies": {
-    "eslint": "^4.19.0",
-    "eslint-config-mourner": "^2.0.3",
-    "tap": "^11.1.2"
+    "eslint": "^8.54.0",
+    "eslint-config-mourner": "^3.0.0",
+    "tape": "^5.7.2"
   },
   "files": [
     "index.js"
   ],
   "scripts": {
-    "test": "eslint index.js && tap test/test*.js",
-    "cov": "tap test/test*.js --cov"
+    "pretest": "eslint index.js test/*.js",
+    "test": "tape test/test*.js"
   },
   "repository": {
     "type": "git",
