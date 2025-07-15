@@ -1,6 +1,5 @@
-'use strict';
 
-const linematch = require('../');
+import linematch from '../index.js';
 
 const lines1 = require('./fixtures/tiger1');
 const lines2 = require('./fixtures/osm1');

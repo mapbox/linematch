@@ -3,20 +3,21 @@
   "version": "1.1.1",
   "description": "A fast algorithm for comparing sets of polylines (e.g. road networks).",
   "main": "index.js",
+  "type": "module",
+  "exports": "./index.js",
   "dependencies": {
-    "flatbush": "^3.3.1"
+    "flatbush": "^4.4.1"
   },
   "devDependencies": {
-    "eslint": "^8.54.0",
-    "eslint-config-mourner": "^3.0.0",
-    "tape": "^5.7.2"
+    "eslint": "^9.31.0",
+    "eslint-config-mourner": "^4.0.2"
   },
   "files": [
     "index.js"
   ],
   "scripts": {
     "pretest": "eslint index.js test/*.js",
-    "test": "tape test/test*.js"
+    "test": "node test/test*.js"
   },
   "repository": {
     "type": "git",
@@ -30,9 +31,6 @@
     "geo",
     "difference"
   ],
-  "eslintConfig": {
-    "extends": "mourner"
-  },
   "author": "Vladimir Agafonkin",
   "license": "ISC",
   "bugs": {

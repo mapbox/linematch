@@ -1,16 +1,15 @@
-'use strict';
 
-const test = require('tape').test;
+import test from 'node:test';
+import assert from 'node:assert/strict';
 
-const linematch = require('../');
+import linematch from '../index.js';
 
-const lines1 = require('./fixtures/tiger1');
-const lines2 = require('./fixtures/osm1');
-const diff = require('./fixtures/diff1');
+import lines1 from './fixtures/tiger1.json' with {type: 'json'};
+import lines2 from './fixtures/osm1.json' with {type: 'json'};
+import diff from './fixtures/diff1.json' with {type: 'json'};
 
-test('sample linematch', (t) => {
+test('sample linematch', () => {
     const result = linematch(lines1, lines2, 0.0001);
-    t.same(result, diff);
-    t.deepEqual(linematch(lines1, lines1, 0.0001), []);
-    t.end();
+    assert.deepEqual(result, diff);
+    assert.deepEqual(linematch(lines1, lines1, 0.0001), []);
 });

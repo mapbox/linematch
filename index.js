@@ -1,11 +1,7 @@
-'use strict';
 
-const Flatbush = require('flatbush');
+import Flatbush from 'flatbush';
 
-module.exports = linematch;
-module.exports.default = linematch;
-
-function linematch(lines1, lines2, threshold) {
+export default function linematch(lines1, lines2, threshold) {
     const segments = linesToSegments(lines1);
     const segments2 = linesToSegments(lines2);
 
