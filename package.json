@@ -1,6 +1,6 @@
 {
   "name": "linematch",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A fast algorithm for comparing sets of polylines (e.g. road networks).",
   "main": "index.js",
   "type": "module",
@@ -36,5 +36,8 @@
   "bugs": {
     "url": "https://github.com/mapbox/linematch/issues"
   },
-  "homepage": "https://github.com/mapbox/linematch#readme"
+  "homepage": "https://github.com/mapbox/linematch#readme",
+  "publishConfig": {
+    "access": "public"
+  }
 }
