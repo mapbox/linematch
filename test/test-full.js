@@ -13,3 +13,9 @@ test('sample linematch', () => {
     assert.deepEqual(result, diff);
     assert.deepEqual(linematch(lines1, lines1, 0.0001), []);
 });
+
+test('threshold 0 matches an exact overlap', () => {
+    const line = [[[0, 0], [1, 0], [2, 0]]];
+    assert.deepEqual(linematch(line, line, 0), []);
+    assert.deepEqual(linematch(line, [[[0, 0], [1, 0]]], 0), [[[1, 0], [2, 0]]]);
+});
