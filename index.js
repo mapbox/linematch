@@ -195,7 +195,8 @@ function closePoint(px, py, ax, ay, bx, by, r) {
     dx = px - x;
     dy = py - y;
 
-    return dx * dx + dy * dy < r * r ? t : null;
+    // Distance 0 is an exact hit. A strict < made threshold 0 match nothing.
+    return dx * dx + dy * dy <= r * r ? t : null;
 }
 
 function equals(ax, ay, bx, by) {
